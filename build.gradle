@@ -1,6 +1,7 @@
 buildscript {
 	ext {
-		springBootVersion = '2.0.0.M4'
+		springBootVersion = '1.5.8.RELEASE'
+		//springBootVersion = '2.0.0.M4'
 	}
 	repositories {
 		mavenCentral()
@@ -33,9 +34,10 @@ dependencies {
 	compile("org.springframework.boot:spring-boot-starter-data-jpa")
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 	runtime 'org.postgresql:postgresql:42.1.4'
-	compile 'org.thymeleaf:thymeleaf:3.0.8.RELEASE'
-	compile 'org.thymeleaf:thymeleaf-spring5:3.0.8.RELEASE'
-	compile 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'
+	compile 'org.thymeleaf:thymeleaf'
+	compile 'org.thymeleaf:thymeleaf-spring4'
+	//compile 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'
 	compile 'org.projectlombok:lombok:1.16.16'
+    //compile 'org.springframework.boot:spring-boot-gradle-plugin'
 }
 

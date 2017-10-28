@@ -1,6 +1,5 @@
 package org.jazz.chart;
 
-import nz.net.ultraq.thymeleaf.LayoutDialect;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -9,7 +8,6 @@ import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
-import org.thymeleaf.spring5.SpringTemplateEngine;
 import java.util.Locale;
 
 @Configuration
@@ -36,14 +34,6 @@ public class WebConfig
         messageSource.setBasename("locale/messages");
         messageSource.setDefaultEncoding("UTF-8");
         return messageSource;
-    }
-
-    @Bean
-    public SpringTemplateEngine webTemplateEngine() {
-        SpringTemplateEngine engine = new SpringTemplateEngine();
-        engine.addDialect(new LayoutDialect());
-
-        return engine;
     }
 
 }

@@ -2,12 +2,8 @@ package org.jazz.chart.model;
 
 import lombok.*;
 import lombok.extern.apachecommons.CommonsLog;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
-
 import java.io.Serializable;
 import javax.persistence.*;
-import java.time.LocalDateTime;
 
 @CommonsLog
 @Getter @Setter
@@ -21,7 +17,7 @@ public class Song implements Serializable
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long song_id;
+	private Long id;
 
 	@Column
 	private String author;
@@ -35,13 +31,13 @@ public class Song implements Serializable
 	@OneToOne(targetEntity = Grid.class, cascade = { CascadeType.ALL }, orphanRemoval = true, fetch=FetchType.EAGER)
 	private Grid grid;
 
-	@Column(name = "created")
-	@CreationTimestamp
-	private LocalDateTime created;
+	//@Column(name = "created")
+	//@CreationTimestamp
+	//private LocalDateTime created;
 
-	@Column(name = "updated")
-	@UpdateTimestamp
-	private LocalDateTime updated;
+	//@Column(name = "updated")
+	//@UpdateTimestamp
+	//private LocalDateTime updated;
 
 	public void updateSongStatistics(Song song)
 	{
