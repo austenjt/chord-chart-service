@@ -13,7 +13,7 @@ import org.thymeleaf.spring5.SpringTemplateEngine;
 import java.util.Locale;
 
 @Configuration
-@ComponentScan
+@ComponentScan(basePackages = "org.jazz.chart")
 public class WebConfig
 {
     @Bean

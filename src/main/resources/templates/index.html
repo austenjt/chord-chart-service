@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org" th:with="lang=${#locale.language}" th:lang="${lang}">
 <head>
-    <title th:text="#{page_title}"></title>
+    <title th:text="#{index_title}"></title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
     <meta charset="utf-8">
@@ -28,13 +28,7 @@
 
 <div class="container">
 
-    <div th:if="${song != null}">
-        <div th:if="${song.title != null}">
-            <p th:text="'Successfully saved new song: ' + ${song.title}">Test</p>
-        </div>
-    </div>
-
-    <div th:if="${song == null}">
+    <div>
         <p>Welcome to chord chart generator app!</p>
     </div>
 

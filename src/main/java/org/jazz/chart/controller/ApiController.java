@@ -4,7 +4,6 @@ import lombok.extern.apachecommons.CommonsLog;
 import org.jazz.chart.db.ChartRepository;
 import org.jazz.chart.model.Song;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.stereotype.Controller;
 import javax.persistence.EntityManager;
@@ -32,19 +31,17 @@ public class ApiController
         return chartRepository.findAll();
     }
 
-    @RequestMapping(value = "/save", method = RequestMethod.POST)
-    String save(@ModelAttribute("song") Song song, Model model)
-    {
-        song.updateSongStatistics(song);
-        chartRepository.save(song);
-        model.addAttribute("song", song);
-        return "index";
-    }
+    //@RequestMapping(value = "/app/save", method = RequestMethod.POST)
+    //String save(@ModelAttribute("song") Song song, Model model)
+    //{
+    //    song.updateSongStatistics(song);
+    //    chartRepository.save(song);
+    //    model.addAttribute("song", song);
+    //    return "index";
+    //}
 
     /**
      * For raw JSON submittal
-     * @param song
-     * @return
      */
     @RequestMapping(value = "/app/submit", method = RequestMethod.POST, consumes = "application/json")
     public @ResponseBody String submitChart(@RequestBody Song song)

@@ -13,9 +13,14 @@ BROWSER `/all` or just `/`
 
 ## Development Info
 
-I used a tool called [Insomnia](https://insomnia.rest/) as my SQL client.   I use IntelliJ-IDEA with the [Lombok plugin](https://plugins.jetbrains.com/plugin/6317-lombok-plugin)
-installed.
-This project is designed for use with [Postgres](https://www.postgresql.org/download/).  See the `application.properties` for more info on what is required.
+* I used a tool called [Insomnia](https://insomnia.rest/) as my API client, instead of PostMan.
+* I use IntelliJ-IDEA with the [Lombok plugin](https://plugins.jetbrains.com/plugin/6317-lombok-plugin) installed.
+  * If you get an error that a class can't be found, make sure you enabled IDE annotation processing for Lombok.
+* This project is designed for use with [Postgres](https://www.postgresql.org/download/).  
+See the `application.properties` for more info on what is required.   I would suggest using a Dockerized Postgres container since it is easier to maintain.
+  * I use IntelliJ-IDEA DB tool to connect to the DB schema and tables.
+* Actuator endpoints are listed at: http://localhost:8080/application
+
 
 ## Input
 

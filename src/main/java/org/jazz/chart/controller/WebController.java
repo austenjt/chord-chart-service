@@ -25,7 +25,7 @@ public class WebController
     // WEB mappings
     // Ex: http://localhost:8080/?lang=fr
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
+    @RequestMapping(value = {"/", "/index", "/home"}, method = RequestMethod.GET)
     String index(HttpSession session) {
         session.setAttribute("mySessionAttribute", "someValue");
         return "index";
