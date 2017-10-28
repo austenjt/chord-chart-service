@@ -1,0 +1,85 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" th:with="lang=${#locale.language}" th:lang="${lang}">
+<head>
+    <title th:text="#{title}"></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <link th:href="@{grid.css}" href="grid.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" th:href="@{/list}" th:text="#{menu_message}"></a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li class="active"><a class="navbar-brand" th:href="@{/list}">Home</a></li>
+            <li class="active"><a class="navbar-brand" th:href="@{/save}">Submit</a></li>
+            <li><a th:text="'Language: ' + ${#locale}"></a></li>
+        </ul>
+    </div>
+</nav>
+
+<h1>Submit A New Song</h1>
+
+<form action="#" th:action="@{/save}" th:object="${song}" method="post">
+    <table border="1">
+        <tr>
+            <td><label th:text="#{sg.title}" /></td>
+            <td><input type="text" th:field="*{title}" /></td>
+        </tr>
+        <tr>
+            <td><label th:text="#{sg.author}" /></td>
+            <td><input type="text" th:field="*{author}" /></td>
+        </tr>
+        <tr>
+            <td><label th:text="#{sg.info.bars}" /></td>
+            <td><input type="text" th:field="*{info.bars}" /></td>
+        </tr>
+        <tr>
+            <td><label th:text="#{sg.info.bpminute}" /></td>
+            <td><input type="text" th:field="*{info.bpminute}" /></td>
+        </tr>
+        <tr>
+            <td><label th:text="#{sg.info.bpmeasure}" /></td>
+            <td><input type="text" th:field="*{info.bpmeasure}" /></td>
+        </tr>
+        <tr>
+            <td><label th:text="#{sg.info.copyright}" /></td>
+            <td><input type="text" th:field="*{info.copyright}" /></td>
+        </tr>
+        <tr>
+            <td><label th:text="#{sg.info.key}" /></td>
+            <td><input type="text" th:field="*{info.key}" /></td>
+        </tr>
+        <tr>
+            <td><label th:text="#{sg.info.genre}" /></td>
+            <td><input type="text" th:field="*{info.genre}" /></td>
+        </tr>
+        <tr>
+            <td><label th:text="#{sg.info.status}" /></td>
+            <td><input type="text" th:field="*{info.status}" /></td>
+        </tr>
+
+        <!--<tr>
+            <td><label th:text="#{sg.info.intro.line.bars}" /></td>
+            <td><input type="text" th:field="*{info.intro.line.bars}" /></td>
+        </tr>-->
+
+        <tr>
+            <td><input type="submit" value="Submit" /></td>
+        </tr>
+    </table>
+</form>
+
+
+
+</body>
+</html>

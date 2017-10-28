@@ -1,0 +1,97 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" th:with="lang=${#locale.language}" th:lang="${lang}">
+<head>
+    <title th:text="#{title}"></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <link th:href="@{grid.css}" href="grid.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" th:href="@{/list}" th:text="#{menu_message}"></a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li class="active"><a class="navbar-brand" th:href="@{/list}">Home</a></li>
+            <li class="active"><a class="navbar-brand" th:href="@{/save}">Submit</a></li>
+            <li><a th:text="'Language: ' + ${#locale}"></a></li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container">
+
+    <div th:if="${song != null}">
+        <h1>Song Details</h1>
+        <table class="table table-striped">
+            <tr>
+                <th>Title</th>
+                <th>Author</th>
+                <th>Info</th>
+            </tr>
+            <tr>
+                <td th:text="${song.title}"></td>
+                <td th:text="${song.author}"></td>
+                <td>
+                    <div th:if="${song.info != null}">
+                    <ul class="table table-striped">
+                        <li th:text="'Seconds: ' + ${song.info.seconds}" />
+                        <li th:text="'Minutes: ' + ${song.info.minutes}" />
+                        <li th:text="'Beats Per Minute: ' + ${song.info.bpminute}" />
+                        <li th:text="'Beats Per Measure: ' + ${song.info.bpmeasure}" />
+                        <li th:text="'Bars:' + ${song.info.bars}" />
+                        <li th:text="'Copyright: ' + ${song.info.copyright}" />
+                        <li th:text="'Key: ' + ${song.info.key}" />
+                        <li th:text="'Genre: ' + ${song.info.genre}" />
+                        <li th:text="'Status: ' + ${song.info.status}" />
+                    </ul>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <br/>
+        <h1>Intro</h1>
+        <table class="table table-striped">
+            <tr>
+                <div th:if="${song.info.intro != null}">
+                <td th:each="x : ${song.info.intro.line.bars}">
+                    <div class="column" th:text="${x.chord}">_</div>
+                </td>
+                </div>
+            </tr>
+        </table>
+    </div>
+
+    <h1 th:text="${song.title}"></h1>
+
+
+    <div th:if="${song != null}">
+        <div th:if="${song.grid != null}">
+            <div th:if="${song.grid.lines != null}">
+                <table class="table table-striped">
+                    <tr th:each="l : ${song.grid.lines}">
+                        <td th:each="b : ${l.bars}">
+                            <div class="column" th:text="${b.chord}">_</div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+<!-- /.container -->
+
+
+
+</body>
+</html>
