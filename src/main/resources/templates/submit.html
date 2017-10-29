@@ -8,25 +8,44 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
     <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>-->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	<script type="text/javascript">	
-		
+    <link rel="stylesheet" href="chart.css"/>
+	<script type="text/javascript">
+
 		function ConvertFormToJSON(form){
-			var array = jQuery(form).serializeArray();
-			var json = {};
-			
-			jQuery.each(array, function() {
-				json[this.name] = this.value || '';
-			});
-			return json;
-		}
-		
+            var array = jQuery(form).serializeArray();
+
+            // prep submit object
+            var json = {};
+            json.info = {};
+            json.info.intro = {};
+            json.info.intro.line = {};
+            json.info.intro.line.bars = [];
+
+            jQuery.each(array, function() {
+                if(this.name=='song-key' ||this.name=='song-copyright' ||this.name=='song-genre'
+                    ||this.name=='song-bpminute' ||this.name=='song-bpmeasure' ||this.name=='song-status'
+                    ||this.name.substr(0,10)=='song-intro')
+                {
+                    //console.log(this.name.substr(0,10));
+                    if (this.name.substr(0,10) == 'song-intro') {
+                        json['info']['intro']['line'].bars.push({"chord": this.value});
+                    } else {
+                        json['info'][this.name] = this.value;
+                    }
+                } else {
+                    json[this.name] = this.value;
+                }
+            });
+
+            return json;
+        }
+
 		jQuery(document).on('ready', function() {
 			jQuery('form#add-song').bind('submit', function(event){
 				event.preventDefault();
 				
 				var form = this;
 				var json = ConvertFormToJSON(form);
-				var tbody = jQuery('#song-list > tbody');
 
 				$.ajax({
 					type: "POST",
@@ -34,9 +53,9 @@
 					data: json,
 					dataType: "json"
 				}).always(function() { 
-					$("#results").append('<pre>' + JSON.stringify(json, null, 4) + "</pre>");	
-				}).fail(function() { 
-					alert("HTTP post failed to add new song."); 
+					$("#results").html('<pre>' + JSON.stringify(json, null, 4) + "</pre>");
+				}).fail(function() {
+                    $("#error").html('<pre>' + "HTTP post failed to add new song. Not hooked up yet?" + "</pre>");
 				});
 
 				return true;
@@ -49,7 +68,7 @@
 <nav class="navbar navbar-default">
 	<div class="container-fluid">
 		<div class="navbar-header">
-			<a class="navbar-brand" th:href="@{/list}" th:text="#{menu_message}"></a>
+			<a class="navbar-brand" th:href="@{/}" th:text="#{menu_message}"></a>
 		</div>
 		<ul class="nav navbar-nav">
 			<li class="active"><a class="navbar-brand" th:href="@{/list}">Home</a></li>
@@ -59,7 +78,8 @@
 	</div>
 </nav>
 
-<div class="container">
+<div class="alt-grid">
+    <div class="container">
 
 <div id="page">
 	<!-- [banner] -->
@@ -72,31 +92,78 @@
 		<article id="song">			
 			<section class="new-song">
 				<form id="add-song">
-					<label for="song-title">Title:</label>
-					<input id="song-title" name="song-title" type="text" required="true"/>
-					<label for="song-author">Author:</label>
-					<input id="song-author" name="song-author" type="text" required="true"/>
-					<br/>
-					<label for="song-key">Key:</label>
-					<input id="song-key" name="song-key" type="text" required="true"/>
-					<label for="song-copyright">Copyright:</label>
-					<input id="song-copyright" name="song-copyright"/>
-					<br/>
-					<label for="song-genre">Genre:</label>
-					<input id="song-genre" name="song-genre" type="text" required="true"/>
-					<br/>
-					<label for="song-bpminute">BPMinute:</label>
-					<input id="song-bpminute" name="song-bpminute" type="text" required="true"/>
-					<br /><br />
-					<input type="submit" value="Add new"/>
+                    <div>
+                        <div class="showBlock">
+                            <div class="showInline">
+                            <label for="song-title">Title:</label>
+                            <input id="song-title" name="song-title" type="text" required="true" />
+                            </div>
+                            <div class="showInline">
+                            <label for="song-key">Key:</label>
+                            <input id="song-key" name="song-key" type="text" required="true" />
+                            </div>
+                            <div class="showInline">
+                            <label for="song-genre">Genre:</label>
+                            <input id="song-genre" name="song-genre" type="text" required="true" value="Gypsy Jazz" />
+                            </div>
+                            <div class="showInline">
+                            <label for="song-bpminute">BPMinute (0-340):</label>
+                            <input id="song-bpminute" name="song-bpminute" type="text" required="true" />
+                            </div>
+                        </div>
+                        <div class="showBlock">
+                            <div class="showInline">
+                            <label for="song-author">Author:</label>
+                            <input id="song-author" name="song-author" type="text" required="true" />
+                            </div>
+                            <div class="showInline">
+                            <label for="song-copyright">Copyright:</label>
+                            <input id="song-copyright" name="song-copyright"/>
+                            </div>
+                            <div class="showInline">
+                            <label for="song-status">Status:</label>
+                            <input id="song-status" name="song-status" type="text" required="true" value="New" />
+                            </div>
+                            <div class="showInline">
+                            <label for="song-bpmeasure">BPMeasure (0-8):</label>
+                            <input id="song-bpmeasure" name="song-bpmeasure" type="text" required="true" value="4" />
+                            </div>
+                        </div>
+                        <br /><br />
+                        Intro Section:
+                        <br />
+                        <div class="showBlock">
+                            <div class="showInline">
+                                <label for="song-intro-1">Intro Bar 1:</label>
+                                <input id="song-intro-1" name="song-intro-1" type="text"/>
+                            </div>
+                            <div class="showInline">
+                                <label for="song-intro-2">Intro Bar 2:</label>
+                                <input id="song-intro-2" name="song-intro-2" type="text"/>
+                            </div>
+                            <div class="showInline">
+                                <label for="song-intro-3">Intro Bar 3:</label>
+                                <input id="song-intro-3" name="song-intro-3" type="text"/>
+                            </div>
+                            <div class="showInline">
+                                <label for="song-intro-4">Intro Bar 4:</label>
+                                <input id="song-intro-4" name="song-intro-4" type="text"/>
+                            </div>
+                        </div>
+                    </div>
+                    <br /><br />
+                    <div class="showBlock">
+					    <input type="submit" value="Add Submit"/>
+                    </div>
 				</form>
 			</section>
 			
 			<br/>
-			Body of post:
-			<br/>
+			Body of post (for validation):
+			<br/><br/>
 			<div id="results"></div>
-			<br/>
+            <div id="error"></div>
+			<br/><br/>
 			<footer>
 			</footer>
 		</article>
@@ -113,6 +180,7 @@
 </div>
 <!-- [/page] -->
 
+</div>
 </div>
 
 </body>

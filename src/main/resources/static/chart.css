@@ -1,0 +1,45 @@
+
+
+pre {
+	overflow: auto;
+}
+
+body {
+	color: #000000;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+form#add-song label{
+	width: 80px;
+	display: inline-block;
+	margin-right: 10px;
+}
+form#add-song input{
+	width: 150px;
+	margin-right: 10px;
+}
+
+form#add-song :required {
+	border-color: #11b8ff;
+	-webkit-box-shadow: 0 0 5px rgba(17, 184, 255, .75);
+	-moz-box-shadow: 0 0 5px rgba(17, 184, 255, .75);
+	-o-box-shadow: 0 0 5px rgba(17, 184, 255, .75);
+	-ms-box-shadow: 0 0 5px rgba(17, 184, 255, .75);
+	box-shadow: 0 0 5px rgba(17, 184, 255, .75);
+}
+
+
+div .showInline {
+    display: inline;
+}
+
+div .showBlock {
+    display: block;
+}
+
+
+/* customized bootstrap items */
+
+.alt-grid [class*="col-"] {padding-left:20;padding-right:20}
+.alt-grid .row {margin-left:40;margin-right:40}
+.alt-grid .container {width:90%;max-width:none;padding:40;}
