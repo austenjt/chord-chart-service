@@ -154,8 +154,9 @@ NOTE: bars, seconds, and minutes are all dynamically calculated from bpminute, b
    
 ##  Schema generate
 
-The application.properties is configured to allow Spring data to initialize the database via schema.sql file.   Alternatively, you can disable this and allow JPA to create the tables.
-
+The application.properties is configured to allow Spring data to initialize the database.  To enable this feature, set
+`spring.jpa.hibernate.ddl-auto=create-drop` , otherwise, disable it with `spring.jpa.hibernate.ddl-auto=none` when site 
+is in production mode.
 
 ## Goal
 

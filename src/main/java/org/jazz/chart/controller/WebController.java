@@ -44,28 +44,9 @@ public class WebController
         return "detail";
     }
 
-    /**
-     * This GET endpoint sets up a model to be used in the subsequent post.
-     * @param model
-     * @return page target
-     */
-    @RequestMapping(value = "/save", method = RequestMethod.GET)
-    String save(Model model) {
-        Song song = Song.builder()
-                .title("Unknown")
-                .author("Unknown")
-                .info(Info.builder()
-                        .bars(16)
-                        .bpmeasure(4)
-                        .bpminute(100)
-                        .copyright(1900)
-                        .status("Submitted")
-                        .intro(Intro.builder().build())
-                        .build())
-                .grid(Grid.builder().build())
-                .build();
-        model.addAttribute("song", song);
-        return "save";
+    @RequestMapping(value = "/submit", method = RequestMethod.GET)
+    String submit(HttpSession session) {
+        return "submit";
     }
 
 }

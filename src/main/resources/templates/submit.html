@@ -1,0 +1,119 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" th:with="lang=${#locale.language}" th:lang="${lang}">
+<head>
+    <title th:text="#{index_title}"></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>-->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script type="text/javascript">	
+		
+		function ConvertFormToJSON(form){
+			var array = jQuery(form).serializeArray();
+			var json = {};
+			
+			jQuery.each(array, function() {
+				json[this.name] = this.value || '';
+			});
+			return json;
+		}
+		
+		jQuery(document).on('ready', function() {
+			jQuery('form#add-song').bind('submit', function(event){
+				event.preventDefault();
+				
+				var form = this;
+				var json = ConvertFormToJSON(form);
+				var tbody = jQuery('#song-list > tbody');
+
+				$.ajax({
+					type: "POST",
+					url: "submit.php",
+					data: json,
+					dataType: "json"
+				}).always(function() { 
+					$("#results").append('<pre>' + JSON.stringify(json, null, 4) + "</pre>");	
+				}).fail(function() { 
+					alert("HTTP post failed to add new song."); 
+				});
+
+				return true;
+			});
+		});
+	</script>	
+</head>
+<body>
+
+<nav class="navbar navbar-default">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<a class="navbar-brand" th:href="@{/list}" th:text="#{menu_message}"></a>
+		</div>
+		<ul class="nav navbar-nav">
+			<li class="active"><a class="navbar-brand" th:href="@{/list}">Home</a></li>
+			<li class="active"><a class="navbar-brand" th:href="@{/submit}">Submit</a></li>
+			<li><a th:text="'Language: ' + ${#locale}"></a></li>
+		</ul>
+	</div>
+</nav>
+
+<div class="container">
+
+<div id="page">
+	<!-- [banner] -->
+	<header id="banner">
+			<h1>Submit A New Song</h1>
+	</header>
+	<!-- [content] -->
+	<section id="content">
+		<!-- [song] -->
+		<article id="song">			
+			<section class="new-song">
+				<form id="add-song">
+					<label for="song-title">Title:</label>
+					<input id="song-title" name="song-title" type="text" required="true"/>
+					<label for="song-author">Author:</label>
+					<input id="song-author" name="song-author" type="text" required="true"/>
+					<br/>
+					<label for="song-key">Key:</label>
+					<input id="song-key" name="song-key" type="text" required="true"/>
+					<label for="song-copyright">Copyright:</label>
+					<input id="song-copyright" name="song-copyright"/>
+					<br/>
+					<label for="song-genre">Genre:</label>
+					<input id="song-genre" name="song-genre" type="text" required="true"/>
+					<br/>
+					<label for="song-bpminute">BPMinute:</label>
+					<input id="song-bpminute" name="song-bpminute" type="text" required="true"/>
+					<br /><br />
+					<input type="submit" value="Add new"/>
+				</form>
+			</section>
+			
+			<br/>
+			Body of post:
+			<br/>
+			<div id="results"></div>
+			<br/>
+			<footer>
+			</footer>
+		</article>
+		<!-- [/song] -->		
+	</section>
+	<!-- [/content] -->
+	
+	<footer id="footer">
+		<details>
+			<summary>Copyright 2017</summary>
+			<p>Jon Austen. All Rights Reserved.</p>
+		</details>
+	</footer>
+</div>
+<!-- [/page] -->
+
+</div>
+
+</body>
+</html>
