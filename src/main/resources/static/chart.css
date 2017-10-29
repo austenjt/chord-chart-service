@@ -37,6 +37,16 @@ div .showBlock {
     display: block;
 }
 
+div .showInlineFlex {
+    display: inline-flex;
+    white-space: nowrap;
+}
+
+.form-textbox {
+    height: 25px !important;
+    width: 50px !important;
+    max: 4;
+}
 
 /* customized bootstrap items */
 

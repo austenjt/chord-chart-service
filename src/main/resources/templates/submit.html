@@ -18,17 +18,24 @@
             var json = {};
             json.info = {};
             json.info.intro = {};
-            json.info.intro.line = {};
-            json.info.intro.line.bars = [];
+            json.info.intro.bars = [];
+            json.grid = {};
+            json.grid.sections = {};
+            json.grid.sections.part = "A";
+            json.grid.sections.part.bars = [];
+            json['grid']['sections']['part'].bars[0] = "{\"chord\": \"Test\"}";
 
+            // iterate each form item in order
             jQuery.each(array, function() {
                 if(this.name=='song-key' ||this.name=='song-copyright' ||this.name=='song-genre'
                     ||this.name=='song-bpminute' ||this.name=='song-bpmeasure' ||this.name=='song-status'
-                    ||this.name.substr(0,10)=='song-intro')
+                    ||this.name.substr(0,10)=='song-intro' ||this.name.substr(0,1)=='A' )
                 {
-                    //console.log(this.name.substr(0,10));
                     if (this.name.substr(0,10) == 'song-intro') {
-                        json['info']['intro']['line'].bars.push({"chord": this.value});
+                        json['info']['intro'].bars.push({"chord": this.value});
+                    } else if (this.name.substr(0,1) == 'A') {
+                        console.log(this.name);
+                        //json['grid']['lines'][0].bars.push({"chord": this.value});
                     } else {
                         json['info'][this.name] = this.value;
                     }
@@ -133,22 +140,41 @@
                         Intro Section:
                         <br />
                         <div class="showBlock">
-                            <div class="showInline">
-                                <label for="song-intro-1">Intro Bar 1:</label>
-                                <input id="song-intro-1" name="song-intro-1" type="text"/>
+                            <div class="showInlineFlex">
+                            <input class="form-textbox" id="song-intro-1" name="song-intro-1" type="text" value="1" />
+                            <input class="form-textbox" id="song-intro-2" name="song-intro-2" type="text" value="2" />
+                            <input class="form-textbox" id="song-intro-3" name="song-intro-3" type="text" value="3" />
+                            <input class="form-textbox" id="song-intro-4" name="song-intro-4" type="text" value="4" />
                             </div>
-                            <div class="showInline">
-                                <label for="song-intro-2">Intro Bar 2:</label>
-                                <input id="song-intro-2" name="song-intro-2" type="text"/>
-                            </div>
-                            <div class="showInline">
-                                <label for="song-intro-3">Intro Bar 3:</label>
-                                <input id="song-intro-3" name="song-intro-3" type="text"/>
-                            </div>
-                            <div class="showInline">
-                                <label for="song-intro-4">Intro Bar 4:</label>
-                                <input id="song-intro-4" name="song-intro-4" type="text"/>
-                            </div>
+                        </div>
+                        <br /><br />
+                        <label>Chord Grid:</label>
+                        <br /><br />
+                        <label>Section A:</label>
+                        <br />
+                        <div class="showBlock">
+                        <div class="showInlineFlex">
+                            <input class="form-textbox" id="A1x1" name="A1x1" type="text" value="1" />
+                            <input class="form-textbox" id="A1x2" name="A1x2" type="text" value="2" />
+                            <input class="form-textbox" id="A1x3" name="A1x3" type="text" value="3" />
+                            <input class="form-textbox" id="A1x4" name="A1x4" type="text" value="4" />
+                            <input class="form-textbox" id="A1x5" name="A1x5" type="text" value="5" />
+                            <input class="form-textbox" id="A1x6" name="A1x6" type="text" value="6" />
+                            <input class="form-textbox" id="A1x7" name="A1x7" type="text" value="7" />
+                            <input class="form-textbox" id="A1x8" name="A1x8" type="text" value="8" />
+                        </div>
+                        </div>
+                        <div class="showBlock">
+                        <div class="showInlineFlex">
+                            <input class="form-textbox" id="A2x1" name="A2x1" type="text" value="9" />
+                            <input class="form-textbox" id="A2x2" name="A2x2" type="text" value="10" />
+                            <input class="form-textbox" id="A2x3" name="A2x3" type="text" value="11" />
+                            <input class="form-textbox" id="A2x4" name="A2x4" type="text" value="12" />
+                            <input class="form-textbox" id="A2x5" name="A2x5" type="text" value="13" />
+                            <input class="form-textbox" id="A2x6" name="A2x6" type="text" value="14" />
+                            <input class="form-textbox" id="A2x7" name="A2x7" type="text" value="15" />
+                            <input class="form-textbox" id="A2x8" name="A2x8" type="text" value="16" />
+                        </div>
                         </div>
                     </div>
                     <br /><br />
