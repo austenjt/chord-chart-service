@@ -21,6 +21,10 @@ See the `application.properties` for more info on what is required.   I would su
   * I use IntelliJ-IDEA DB tool to connect to the DB schema and tables.
 * Actuator endpoints are listed at: http://localhost:8080/application
 
+#### TODO:
+
+http://www.baeldung.com/dockerizing-spring-boot-application
+
 
 ## Input
 
