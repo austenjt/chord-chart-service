@@ -1,5 +1,7 @@
 # chord-chart-generator
 
+Abandoned project in favor of using Javalin + PF4J + CouchBase
+
 A spring-boot 2.x project, demonstrating JPA, Spring-MVC, Lombok, with Postgres.
 
 ## Api
